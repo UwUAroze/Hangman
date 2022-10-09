@@ -15,22 +15,22 @@ public class Main {
             "Winter"
     };
 
-    static ArrayList<String> guesses = new ArrayList<>();
-    static int incorrectGuesses = 0;
+    static ArrayList<String> correctGuesses = new ArrayList<>();
+    static ArrayList<String> incorrectGuesses = new ArrayList<>();
     static String word = getRandomWord();
 
     public static void main(String[] args) {
-        printGame();
+        while (true) nextTurn();
     }
 
     public static void printGame() {
-        System.out.println(HangingMan.getFunny(incorrectGuesses));
+        System.out.println(HangingMan.getFunny(incorrectGuesses.size()));
         System.out.println(word);
         printPlaceHolders();
     }
 
     public static String getRandomWord() { return words[(int) (Math.random() * words.length)]; }
-    public static String getInput() { return new Scanner(System.in).next(); }
+    public static String getInput() { return new Scanner(System.in).next().toLowerCase(); }
 
     static void printPlaceHolders() {
         StringBuilder placeHolders = new StringBuilder();
@@ -39,13 +39,23 @@ public class Main {
             placeHolders.append(" ");
             String correctChar = String.valueOf(word.charAt(x));
 
-            if (guesses.contains(correctChar)) {
+            if (correctGuesses.contains(correctChar.toLowerCase())) {
                 placeHolders.append(correctChar);
                 continue;
             } placeHolders.append("_");
         }
 
         System.out.println(placeHolders);
+    }
+
+    static void nextTurn() {
+        System.out.print("Guess: ");
+        String input = getInput();
+        if (word.toLowerCase().contains(input.toLowerCase())) correctGuesses.add(input);
+        else incorrectGuesses.add(input);
+
+        printGame();
+
     }
 
 }
