@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -28,6 +30,7 @@ public class Main {
     }
 
     public static String getRandomWord() { return words[(int) (Math.random() * words.length)]; }
+    public static String getInput() { return new Scanner(System.in).next(); }
 
     static void printPlaceHolders() {
         StringBuilder placeHolders = new StringBuilder();
