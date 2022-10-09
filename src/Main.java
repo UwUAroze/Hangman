@@ -1,7 +1,6 @@
-public class Main {
+import java.util.ArrayList;
 
-    static int totalGuesses = 0;
-    static int incorrectGuesses = 0;
+public class Main {
 
     // Word list stolen from: https://github.com/UwUAroze/ChatMinigames/blob/master/src/main/resources/config.yml
     public static String[] words = {
@@ -14,15 +13,36 @@ public class Main {
             "Winter"
     };
 
+    static ArrayList<String> guesses = new ArrayList<>();
+    static int incorrectGuesses = 0;
+    static String word = getRandomWord();
+
     public static void main(String[] args) {
         printGame();
     }
 
     public static void printGame() {
         System.out.println(HangingMan.getFunny(incorrectGuesses));
-        System.out.println(getRandomWord());
+        System.out.println(word);
+        printPlaceHolders();
     }
 
     public static String getRandomWord() { return words[(int) (Math.random() * words.length)]; }
+
+    static void printPlaceHolders() {
+        StringBuilder placeHolders = new StringBuilder();
+
+        for (int x=0; x < word.length(); x++) {
+            placeHolders.append(" ");
+            String correctChar = String.valueOf(word.charAt(x));
+
+            if (guesses.contains(correctChar)) {
+                placeHolders.append(correctChar);
+                continue;
+            } placeHolders.append("_");
+        }
+
+        System.out.println(placeHolders);
+    }
 
 }
